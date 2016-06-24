@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OpenGlTemplateApp
 {
@@ -62,7 +58,7 @@ namespace OpenGlTemplateApp
                             points.Point[iz + iy + ix + count.X],
                             points.Point[iz + iy + ix + count.X + 1]);
                         bottomFaceSubAreas.Add(face);
-                    }                 
+                    }
                 }
             }
             return bottomFaceSubAreas;

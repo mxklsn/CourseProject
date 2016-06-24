@@ -19,16 +19,16 @@ namespace TemplateApp
         {
             get { return enablePaint; }
             set { 
-                enablePaint = value;  
-                if(enablePaint)
-                {
-                    if (!initialized)
+                    enablePaint = value;  
+                    if(enablePaint)
                     {
-                        DllImportFunctions.InitDirectX((int)Handle);
-                        DllImportFunctions.PrepareScene((int)Handle, Width, Height);
-                        initialized = true;
+                        if (!initialized)
+                        {
+                            DllImportFunctions.InitDirectX((int)Handle);
+                            DllImportFunctions.PrepareScene((int)Handle, Width, Height);
+                            initialized = true;
+                        }
                     }
-                }
                 }
         }
         public DxControl()

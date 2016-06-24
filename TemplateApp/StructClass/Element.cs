@@ -13,7 +13,7 @@ namespace OpenGlTemplateApp
         public Element(Point p1, Point p2, Point p3, Point p4,
             Point p5, Point p6, Point p7, Point p8)
         {
-            List<Point> points = new List<Point>();
+            var points = new List<Point>();
             points.Add(p1);
             points.Add(p2);
             points.Add(p3);

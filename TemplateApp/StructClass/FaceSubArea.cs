@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace OpenGlTemplateApp
-{   
+{
     /*
      * Класс одной нижней(опорной) грани элемента
      * Класс-помошник нужен на этапе формирования подобласти как конечного элемента
@@ -13,7 +13,7 @@ namespace OpenGlTemplateApp
 
         public FaceSubArea(Point p1, Point p2, Point p3, Point p4)
         {
-            List<Point> points = new List<Point>();
+            var points = new List<Point>();
             points.Add(p1);
             points.Add(p2);
             points.Add(p3);

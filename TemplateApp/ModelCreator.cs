@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace OpenGlTemplateApp
+﻿namespace OpenGlTemplateApp
 {
     /*
      * Создание модели отображения объекта
@@ -21,7 +18,8 @@ namespace OpenGlTemplateApp
         {
             var inputData = _curveData.LoadJson();
             var modelSubAreas = _modelSubAreas.GetSubAreas(inputData);
-            //var drawerData = _modelGrid.GetGrid(inputData);
+            var drawerData = _modelGrid.GetGrid(inputData, modelSubAreas);
+
             //var mnkEstimator = MnkFactory.CreateEstimator(inputData.Type);
             //var curve = mnkEstimator.GetCurve(inputData);
             //_drawer.Draw(inputData.CurvePoints.X.Min(), inputData.CurvePoints.X.Max());
