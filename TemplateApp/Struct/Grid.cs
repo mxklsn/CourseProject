@@ -4,15 +4,17 @@ namespace OpenGlTemplateApp
 {
     internal class Grid
     {
-        public List<Element> Elements { get; private set; }
-
+        /// <summary>
+        /// Сетка
+        /// </summary>
+        /// <param name="element">Восемь трехмерных точек</param>
         public Grid(Element element)
         {
             var points = new List<Element>();
             points.Add(element);
             Elements = points;
         }
+
+        public List<Element> Elements { get; private set; }
     }
-
-
 }

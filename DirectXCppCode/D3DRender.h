@@ -276,7 +276,7 @@ namespace DX
 			}
 		}
 
-		RenderingUnit CreateTriangleColorUnit(std::vector<std::array<std::vector<int>, 3>>& Triangles, std::vector<std::array<double, 3>>& vertexes, std::vector<std::array<double, 3>>& normals) //в паре первое -- треугольник, второе -- rgb цвет
+		RenderingUnit CreateLineColorUnit(std::vector<std::array<std::vector<int>, 3>>& Triangles, std::vector<std::array<double, 3>>& vertexes, std::vector<std::array<double, 3>>& normals) //в паре первое -- треугольник, второе -- rgb цвет
 		{
 			RenderingUnit unit;
 			unit.uType = RenderingUnit::UnitType::Triangle;
@@ -331,7 +331,7 @@ namespace DX
 							int newver = (int)vertarray.size();
 							vertarray.push_back(vertarray[ver]);
 							vertarray[newver].Color = Col;
-							indexarray[i * 3 + j] = newver;
+							indexarray[i * 2 + j] = newver;  // для треугольников 3
 						}
 					}
 				}
@@ -371,7 +371,7 @@ namespace DX
 			RenderScene(SavedScene);
 			context->Flush();
 			renderTarget2D->BeginDraw();
-			std::wstring txtX = L"X";
+			/*std::wstring txtX = L"X";
 			std::wstring txtY = L"Y";
 			std::wstring txt0 = L"0";
 			ResetTextFormat(L"Arial", false, true, 12);
@@ -395,12 +395,12 @@ namespace DX
 			D2D1_POINT_2F p1 = { 20, 20 };
 			D2D1_POINT_2F p2 = { 740, 640 };
 			D2D1_POINT_2F p3 = { 20, 640 };
-
+			
 			CComPtr<ID2D1SolidColorBrush> scbrush;
 			CheckHR(renderTarget2D->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::OrangeRed), &scbrush));
 
 			renderTarget2D->DrawLine(p1, p3, current2DBrush, 2.0);
-			renderTarget2D->DrawLine(p2, p3, current2DBrush, 2.0);
+			renderTarget2D->DrawLine(p2, p3, current2DBrush, 2.0);*/
 			CheckHR(renderTarget2D->EndDraw());
 
 			swapChain->Present(0, 0);
