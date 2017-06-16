@@ -28,7 +28,8 @@ namespace TemplateApp
                             DllImportFunctions.PrepareScene((int)Handle, Width, Height,
                                 TemplateApp.Form1.CountArray,
                                 TemplateApp.Form1.CountFe, 
-                                TemplateApp.Form1.Points);
+                                TemplateApp.Form1.Points,
+                                TemplateApp.Form1.isColored);
                             initialized = true;
                         }
                     }
@@ -50,7 +51,8 @@ namespace TemplateApp
                     TemplateApp.Form1.ChangerX,
                     TemplateApp.Form1.ChangerY,
                     TemplateApp.Form1.ChangerZ,
-                    TemplateApp.Form1.CoefDepth);
+                    TemplateApp.Form1.CoefDepth,
+                    TemplateApp.Form1.isColored);
 
 
                 if (TemplateApp.Form1.DxRefresh)
@@ -59,7 +61,8 @@ namespace TemplateApp
                     DllImportFunctions.PrepareScene((int)Handle, Width, Height,
                         TemplateApp.Form1.CountArray,
                         TemplateApp.Form1.CountFe,
-                        TemplateApp.Form1.Points);
+                        TemplateApp.Form1.Points,
+                        TemplateApp.Form1.isColored);
                     TemplateApp.Form1.DxRefresh = false;
                 }
             }
@@ -84,9 +87,9 @@ public class DllImportFunctions
     public static extern void InitDirectX(int hwnd);
 
     [DllImport("DirectXCppCode.Dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "PrepareScene")]
-    public static extern void PrepareScene(int hdc, int w, int h, int countArray, Int32[] countFe, Double[] arrayLayers);
+    public static extern void PrepareScene(int hdc, int w, int h, int countArray, Int32[] countFe, Double[] arrayLayers, bool isColored);
 
     [DllImport("DirectXCppCode.Dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "RenderScene")]
-    public static extern void RenderScene(int hdc, double step, int x, int y, int z, double scale);
+    public static extern void RenderScene(int hdc, double step, int x, int y, int z, double scale, bool isColored);
 
 }

@@ -37,7 +37,7 @@ namespace DX
 			CComPtr<ID3D11Buffer> indexBuffer;
 			CComPtr<ID3D11ShaderResourceView> ColorTexRV;
 
-			enum class UnitType{ Triangle } uType;
+			enum class UnitType { Triangle } uType;
 			UINT IndexCount;
 		};
 	protected:
@@ -51,6 +51,7 @@ namespace DX
 		{
 			DirectX::XMMATRIX mView;
 			DirectX::XMMATRIX mProjection;
+			DirectX::XMMATRIX mWorld;
 		};
 
 
@@ -252,27 +253,28 @@ namespace DX
 			context->Flush();
 			swapChain->Present(0, 0);
 		}
-		void RenderUnit(RenderingUnit& unit)
+		void RenderUnit(RenderingUnit& unit, bool isColored)
 		{
 			if (unit.IndexCount == 0)return;
 			switch (unit.uType)
 			{
 			case RenderingUnit::UnitType::Triangle:
 			{
-													  UINT stride = sizeof(VertexForColorTriangle);
-													  UINT offset = 0;
+				UINT stride = sizeof(VertexForColorTriangle);
+				UINT offset = 0;
 
-													  context->IASetVertexBuffers(0, 1, &unit.vertexBuffer.p, &stride, &offset);
-													  context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
-													  context->IASetIndexBuffer(unit.indexBuffer, DXGI_FORMAT::DXGI_FORMAT_R32_UINT, 0);
-													  context->IASetInputLayout(vertexLayout);
-													  context->VSSetShader(vertexShader, nullptr, 0);
-													  context->PSSetShader(pixelShader, nullptr, 0);
-													  //context->PSSetShaderResources(0, 6, &textureView->p);//передаем текстуру в шейдер
+				context->IASetVertexBuffers(0, 1, &unit.vertexBuffer.p, &stride, &offset);
+				context->IASetPrimitiveTopology(isColored ?
+					D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+				context->IASetIndexBuffer(unit.indexBuffer, DXGI_FORMAT::DXGI_FORMAT_R32_UINT, 0);
+				context->IASetInputLayout(vertexLayout);
+				context->VSSetShader(vertexShader, nullptr, 0);
+				context->PSSetShader(pixelShader, nullptr, 0);
+				context->PSSetShaderResources(0, 6, &textureView->p);//передаем текстуру в шейдер
 
-													  context->DrawIndexed(unit.IndexCount, 0, 0);
+				context->DrawIndexed(unit.IndexCount, 0, 0);
 			}
-				break;
+			break;
 			}
 		}
 
@@ -355,10 +357,89 @@ namespace DX
 			return unit;
 		}
 
-		void RenderScene(std::vector<RenderingUnit>& scene)
+		RenderingUnit CreateTriangleColorUnit(std::vector<std::array<std::array<int, 3>, 4>>& Triangles, std::vector<std::array<double, 3>>& vertexes, std::vector<std::array<double, 3>>& normals) //в паре первое -- треугольник, второе -- rgb цвет
+		{
+			RenderingUnit unit;
+			unit.uType = RenderingUnit::UnitType::Triangle;
+			unit.IndexCount = (int)Triangles.size() * 3;
+			if (unit.IndexCount == 0)return unit;
+
+			std::vector<VertexForColorTriangle> vertarray(vertexes.size());
+			std::vector<DWORD> indexarray(Triangles.size() * 3);
+			for (int i = 0; i<vertexes.size(); i++)
+			{
+				vertarray[i].Pos.x = vertexes[i][0];
+				vertarray[i].Pos.y = vertexes[i][1];
+				vertarray[i].Pos.z = vertexes[i][2];
+				if (normals.size() == vertexes.size())
+				{
+					vertarray[i].Normal.x = normals[i][0];
+					vertarray[i].Normal.y = normals[i][1];
+					vertarray[i].Normal.z = normals[i][2];
+				}
+				else
+				{
+					vertarray[i].Normal.x = 0;
+					vertarray[i].Normal.y = 0;
+					vertarray[i].Normal.z = 1;
+				}
+				vertarray[i].Color.x = -1;
+				vertarray[i].Color.y = -1;
+				vertarray[i].Color.z = -1;
+				vertarray[i].Color.w = -1;
+			}
+
+			for (int i = 0; i<Triangles.size(); i++)
+			{
+				for (int j = 0; j<3; j++)
+				{
+					int ver = Triangles[i][0][j];
+					indexarray[i * 3 + j] = ver;
+					DirectX::XMFLOAT4 Col;
+					Col.x = Triangles[i][1 + j][0] / 255.;
+					Col.y = Triangles[i][1 + j][1] / 255.;
+					Col.z = Triangles[i][1 + j][2] / 255.;
+					Col.w = 1;
+
+					if (vertarray[ver].Color.x == -1)
+					{
+						vertarray[ver].Color = Col;
+					}
+					else
+					{
+						if (vertarray[ver].Color.x != Col.x || vertarray[ver].Color.y != Col.z || vertarray[ver].Color.z != Col.z || vertarray[ver].Color.w != Col.w)
+						{
+							int newver = (int)vertarray.size();
+							vertarray.push_back(vertarray[ver]);
+							vertarray[newver].Color = Col;
+							indexarray[i * 3 + j] = newver;
+						}
+					}
+				}
+			}
+
+			CD3D11_BUFFER_DESC bufferDesc((int)vertarray.size() * sizeof(VertexForColorTriangle), D3D11_BIND_VERTEX_BUFFER);
+			D3D11_SUBRESOURCE_DATA data;
+			data.pSysMem = vertarray.data();
+			data.SysMemPitch = 0;
+			data.SysMemSlicePitch = 0;
+			CheckHR(device->CreateBuffer(&bufferDesc, &data, &unit.vertexBuffer));
+
+			{
+				CD3D11_BUFFER_DESC bufferDesc((int)indexarray.size() * sizeof(DWORD), D3D11_BIND_INDEX_BUFFER);
+				D3D11_SUBRESOURCE_DATA data;
+				data.pSysMem = indexarray.data();
+				data.SysMemPitch = 0;
+				data.SysMemSlicePitch = 0;
+				CheckHR(device->CreateBuffer(&bufferDesc, &data, &unit.indexBuffer));
+			}
+			return unit;
+		}
+
+		void RenderScene(std::vector<RenderingUnit>& scene, bool isColored)
 		{
 			UpdateProectionsAndLightingData();
-			for (auto& i : scene)RenderUnit(i);
+			for (auto& i : scene)RenderUnit(i, isColored);
 		}
 
 		void AddToSaved(RenderingUnit& unit)
@@ -366,43 +447,12 @@ namespace DX
 			SavedScene.push_back(unit);
 		}
 
-		void RenderSavedData()
+		void RenderSavedData(bool isColored)
 		{
-			RenderScene(SavedScene);
+			RenderScene(SavedScene, isColored);
 			context->Flush();
 			renderTarget2D->BeginDraw();
-			/*std::wstring txtX = L"X";
-			std::wstring txtY = L"Y";
-			std::wstring txt0 = L"0";
-			ResetTextFormat(L"Arial", false, true, 12);
-			textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING);
-			CComPtr<IDWriteTextLayout> layoutX;
-			CComPtr<IDWriteTextLayout> layoutY;
-			CComPtr<IDWriteTextLayout> layout0;
-			auto sz = renderTarget2D->GetSize();
-			writeFactory->CreateTextLayout(txtX.c_str(), (UINT32)txtX.length(), textFormat, sz.width, sz.height, &layoutX);
-			writeFactory->CreateTextLayout(txtY.c_str(), (UINT32)txtY.length(), textFormat, sz.width, sz.height, &layoutY);
-			writeFactory->CreateTextLayout(txt0.c_str(), (UINT32)txt0.length(), textFormat, sz.width, sz.height, &layout0);
-			D2D1_POINT_2F pX = { 740, 640 };
-			D2D1_POINT_2F pY = { 5, 10 };
-			D2D1_POINT_2F p0 = { 10, 640 };
-
-			renderTarget2D->DrawTextLayout(pX, layoutX, current2DBrush);
-			renderTarget2D->DrawTextLayout(pY, layoutY, current2DBrush);
-			renderTarget2D->DrawTextLayout(p0, layout0, current2DBrush);
-
-			// Lines points
-			D2D1_POINT_2F p1 = { 20, 20 };
-			D2D1_POINT_2F p2 = { 740, 640 };
-			D2D1_POINT_2F p3 = { 20, 640 };
-			
-			CComPtr<ID2D1SolidColorBrush> scbrush;
-			CheckHR(renderTarget2D->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::OrangeRed), &scbrush));
-
-			renderTarget2D->DrawLine(p1, p3, current2DBrush, 2.0);
-			renderTarget2D->DrawLine(p2, p3, current2DBrush, 2.0);*/
 			CheckHR(renderTarget2D->EndDraw());
-
 			swapChain->Present(0, 0);
 		}
 
@@ -428,4 +478,3 @@ namespace DX
 	};
 
 }
-

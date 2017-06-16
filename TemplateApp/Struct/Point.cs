@@ -1,4 +1,4 @@
-﻿namespace OpenGlTemplateApp
+﻿  namespace OpenGlTemplateApp
 {
     internal class Point
     {

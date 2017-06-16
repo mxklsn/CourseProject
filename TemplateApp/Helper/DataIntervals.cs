@@ -11,7 +11,7 @@ namespace OpenGlTemplateApp
         /// </summary>
         /// <param name="array">массив с разрядкой и кол-вом интерваллов</param>
         /// <param name="countPt">массив с кол-м точек по X,Y,Z осям</param>
-        public DataIntervalsData(double[] array, DataPoints.CountPoints countPt)
+        public DataIntervalsData(double[] array, DataPoints.CountPoints countPt, int meshGridCount)
         {
             var arrayX = new List<Coefficient>(countPt.X);
             var arrayY = new List<Coefficient>(countPt.Y);
@@ -22,17 +22,17 @@ namespace OpenGlTemplateApp
 
             for (var i = 0; i < countX * 2; i += 2)
             {
-                arrayX.Add(new Coefficient(Convert.ToInt32(array[i]), array[i + 1]));
+                arrayX.Add(new Coefficient(Convert.ToInt32(array[i] * meshGridCount), array[i + 1]));
             }
 
             for (var i = countX * 2; i < (countX + countY) * 2; i += 2)
             {
-                arrayY.Add(new Coefficient(Convert.ToInt32(array[i]), array[i + 1]));
+                arrayY.Add(new Coefficient(Convert.ToInt32(array[i] * meshGridCount), array[i + 1]));
             }
 
             for (var i = (countX + countY) * 2; i < (countX + countY + countZ) * 2; i += 2)
             {
-                arrayZ.Add(new Coefficient(Convert.ToInt32(array[i]), array[i + 1]));
+                arrayZ.Add(new Coefficient(Convert.ToInt32(array[i] * meshGridCount), array[i + 1]));
             }
 
             X = arrayX;

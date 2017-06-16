@@ -30,10 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dxControl1 = new TemplateApp.DxControl();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.paintColored = new System.Windows.Forms.CheckBox();
+            this.meshGridCount = new System.Windows.Forms.NumericUpDown();
             this.stepChange = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -47,7 +49,9 @@
             this.minusY = new System.Windows.Forms.Button();
             this.plusX = new System.Windows.Forms.Button();
             this.minusX = new System.Windows.Forms.Button();
+            this.dxControl1 = new TemplateApp.DxControl();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,21 +61,14 @@
             this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // dxControl1
-            // 
-            this.dxControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dxControl1.EnablePaint = false;
-            this.dxControl1.Location = new System.Drawing.Point(0, 0);
-            this.dxControl1.Name = "dxControl1";
-            this.dxControl1.Size = new System.Drawing.Size(819, 689);
-            this.dxControl1.TabIndex = 3;
-            this.dxControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dxControl1_MouseMove);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.Controls.Add(this.paintColored);
+            this.panel1.Controls.Add(this.meshGridCount);
             this.panel1.Controls.Add(this.stepChange);
             this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label6);
@@ -89,6 +86,42 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 689);
             this.panel1.TabIndex = 4;
+            // 
+            // paintColored
+            // 
+            this.paintColored.AutoSize = true;
+            this.paintColored.Location = new System.Drawing.Point(22, 279);
+            this.paintColored.Name = "paintColored";
+            this.paintColored.Size = new System.Drawing.Size(100, 17);
+            this.paintColored.TabIndex = 28;
+            this.paintColored.Text = "Залить фигуру";
+            this.paintColored.UseVisualStyleBackColor = true;
+            this.paintColored.CheckedChanged += new System.EventHandler(this.paintColored_CheckedChanged);
+            // 
+            // meshGridCount
+            // 
+            this.meshGridCount.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.meshGridCount.Location = new System.Drawing.Point(124, 241);
+            this.meshGridCount.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.meshGridCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.meshGridCount.Name = "meshGridCount";
+            this.meshGridCount.ReadOnly = true;
+            this.meshGridCount.Size = new System.Drawing.Size(55, 20);
+            this.meshGridCount.TabIndex = 27;
+            this.meshGridCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.meshGridCount.ValueChanged += new System.EventHandler(this.meshGridCount_ValueChanged);
             // 
             // stepChange
             // 
@@ -115,7 +148,7 @@
             this.stepChange.Size = new System.Drawing.Size(55, 20);
             this.stepChange.TabIndex = 27;
             this.stepChange.Value = new decimal(new int[] {
-            1,
+            4,
             0,
             0,
             131072});
@@ -129,6 +162,15 @@
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 25;
             this.label8.Text = "Маштаб:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 243);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Дробление сетки:";
             // 
             // label7
             // 
@@ -263,6 +305,16 @@
             this.minusX.UseVisualStyleBackColor = true;
             this.minusX.Click += new System.EventHandler(this.minusX_Click);
             // 
+            // dxControl1
+            // 
+            this.dxControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dxControl1.EnablePaint = false;
+            this.dxControl1.Location = new System.Drawing.Point(0, 0);
+            this.dxControl1.Name = "dxControl1";
+            this.dxControl1.Size = new System.Drawing.Size(819, 689);
+            this.dxControl1.TabIndex = 3;
+            this.dxControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dxControl1_MouseMove);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,6 +327,7 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).EndInit();
             this.ResumeLayout(false);
 
@@ -300,6 +353,9 @@
         private System.Windows.Forms.Button minusY;
         private System.Windows.Forms.Button plusX;
         private System.Windows.Forms.Button minusX;
+        private System.Windows.Forms.NumericUpDown meshGridCount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox paintColored;
     }
 }
 

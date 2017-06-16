@@ -5,6 +5,13 @@ struct VS_OUTPUT
 	float4 Normal: NORMAL;
 	float4 Color : COLOR0;
 };
+
+Texture2D  gTexture : register(t0);
+
+SamplerState TextureSampler
+{
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------

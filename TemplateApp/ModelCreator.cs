@@ -13,15 +13,20 @@ namespace OpenGlTemplateApp
     {
         private readonly ModelData _curveData;
 
+        private readonly int _meshGridCount;
+
+        private readonly bool _isColored;
+
         public double[] Points { get; set; }
 
         public int[] CountFe { get; set; }
 
         public int CountArray { get; set; }
 
-        public ModelCreator(ModelData curveFile)
+        public ModelCreator(ModelData curveFile, int meshGridCount)
         {
             _curveData = curveFile;
+            _meshGridCount = meshGridCount;
         }
 
         public void Create()
@@ -30,7 +35,10 @@ namespace OpenGlTemplateApp
             var inputData = _curveData.LoadJson();
 
             // Преобразовываем данные
-            var intervalsData = new DataIntervalsData(inputData.DataIntervals.Values, inputData.DataPoints.Count);
+            var intervalsData = new DataIntervalsData(
+                inputData.DataIntervals.Values, 
+                inputData.DataPoints.Count,
+                _meshGridCount);
             var sections = new GetSections(inputData, intervalsData);
 
             // Получаем коненые елементы (сетку)

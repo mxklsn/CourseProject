@@ -12,25 +12,29 @@ namespace TemplateApp
 
         public static bool DxRefresh;
 
-        public static int ChangerX;
-        public static int ChangerY;
-        public static int ChangerZ;
+        public static int ChangerX = -19;
+        public static int ChangerY = -9;
+        public static int ChangerZ = -10;
         public static double StepChanger;
         public static double CoefDepth;
-
+   
         public static int[] CountFe;
         public static int CountArray;
         public static double[] Points;
+        public static bool isColored = false;
 
         public Form1()
         {
             InitializeComponent();
-            var modelCreator = new ModelCreator(new ModelData("../TestCase/test.json"));
+            var modelCreator = new ModelCreator(
+                new ModelData("../TestCase/test.json"),
+                Convert.ToInt32(meshGridCount.Value));
             modelCreator.Create();
 
             Points = modelCreator.Points;
             CountFe = modelCreator.CountFe;
             CountArray = modelCreator.CountArray;
+            isColored = paintColored.Checked;
 
             CoefDepth = 0.7;
             StepChanger = Convert.ToDouble(stepChange.Value);
@@ -112,6 +116,46 @@ namespace TemplateApp
         private void plusScale_Click(object sender, EventArgs e)
         {
             CoefDepth += 0.1;
+            dxControl1.Refresh();
+        }
+
+
+        /* Дробление сетки */ 
+        private void meshGridCount_ValueChanged(object sender, EventArgs e)
+        {
+            var modelCreator = new ModelCreator(
+                new ModelData("../TestCase/test.json"),
+                Convert.ToInt32(meshGridCount.Value));
+            modelCreator.Create();
+
+            Points = modelCreator.Points;
+            CountFe = modelCreator.CountFe;
+            CountArray = modelCreator.CountArray;
+
+            CoefDepth = 0.7;
+            StepChanger = Convert.ToDouble(stepChange.Value);
+            DxRefresh = true;
+
+            dxControl1.Refresh();
+        }
+
+        /* Заливка */
+        private void paintColored_CheckedChanged(object sender, EventArgs e)
+        {
+            var modelCreator = new ModelCreator(
+                new ModelData("../TestCase/test.json"),
+                1);
+            modelCreator.Create();
+
+            Points = modelCreator.Points;
+            CountFe = modelCreator.CountFe;
+            CountArray = modelCreator.CountArray;
+            isColored = paintColored.Checked;
+
+            CoefDepth = 0.7;
+            StepChanger = Convert.ToDouble(stepChange.Value);
+
+            DxRefresh = true;
             dxControl1.Refresh();
         }
     }
