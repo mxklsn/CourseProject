@@ -25,6 +25,7 @@ VS_OUTPUT main(float4 Pos : POSITION, float4 Color : COLOR, float4 Normal : NORM
 	/*depth*/
 	//output.Pos = mul(Pos, World);
 	/**/
+
 	output.Pos = mul(Pos, View);
 	output.Normal = mul(Normal, View);
 	output.Color = Color;
@@ -32,8 +33,9 @@ VS_OUTPUT main(float4 Pos : POSITION, float4 Color : COLOR, float4 Normal : NORM
 	output.Pos = mul(output.Pos, Projection);
 	//output.Normal = mul(output.Normal, Projection);
 	output.Color = Color;
+	output.Color = Color;
 
-	output.depthPosition = output.Pos;
+	//output.depthPosition = output.Pos;
 
 	return output;
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using OpenGlTemplateApp.Methods;
 
 namespace OpenGlTemplateApp
@@ -15,6 +16,8 @@ namespace OpenGlTemplateApp
 
         private readonly int _meshGridCount;
 
+        //public DataGridView _dataGridView;
+
         private readonly bool _isColored;
 
         public double[] Points { get; set; }
@@ -27,6 +30,7 @@ namespace OpenGlTemplateApp
         {
             _curveData = curveFile;
             _meshGridCount = meshGridCount;
+            //_dataGridView = dataGV;
         }
 
         public void Create()

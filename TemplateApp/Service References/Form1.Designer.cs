@@ -50,9 +50,11 @@
             this.plusX = new System.Windows.Forms.Button();
             this.minusX = new System.Windows.Forms.Button();
             this.dxControl1 = new TemplateApp.DxControl();
+            this.serializationErrorCallbackBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -84,13 +86,13 @@
             this.panel1.Controls.Add(this.minusX);
             this.panel1.Location = new System.Drawing.Point(816, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 689);
+            this.panel1.Size = new System.Drawing.Size(440, 689);
             this.panel1.TabIndex = 4;
             // 
             // paintColored
             // 
             this.paintColored.AutoSize = true;
-            this.paintColored.Location = new System.Drawing.Point(22, 279);
+            this.paintColored.Location = new System.Drawing.Point(224, 101);
             this.paintColored.Name = "paintColored";
             this.paintColored.Size = new System.Drawing.Size(100, 17);
             this.paintColored.TabIndex = 28;
@@ -101,7 +103,7 @@
             // meshGridCount
             // 
             this.meshGridCount.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.meshGridCount.Location = new System.Drawing.Point(124, 241);
+            this.meshGridCount.Location = new System.Drawing.Point(326, 71);
             this.meshGridCount.Maximum = new decimal(new int[] {
             6,
             0,
@@ -157,7 +159,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 164);
+            this.label8.Location = new System.Drawing.Point(221, 9);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 25;
@@ -166,7 +168,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 243);
+            this.label1.Location = new System.Drawing.Point(221, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 26;
@@ -184,7 +186,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(60, 194);
+            this.label9.Location = new System.Drawing.Point(262, 44);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 13);
             this.label9.TabIndex = 21;
@@ -193,7 +195,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(60, 96);
+            this.label6.Location = new System.Drawing.Point(60, 102);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 13);
             this.label6.TabIndex = 22;
@@ -202,7 +204,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(60, 67);
+            this.label5.Location = new System.Drawing.Point(60, 73);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 13);
             this.label5.TabIndex = 23;
@@ -211,7 +213,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(60, 38);
+            this.label4.Location = new System.Drawing.Point(60, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 24;
@@ -220,7 +222,7 @@
             // plusScale
             // 
             this.plusScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.plusScale.Location = new System.Drawing.Point(147, 189);
+            this.plusScale.Location = new System.Drawing.Point(340, 39);
             this.plusScale.Name = "plusScale";
             this.plusScale.Size = new System.Drawing.Size(32, 23);
             this.plusScale.TabIndex = 13;
@@ -231,7 +233,7 @@
             // minusScale
             // 
             this.minusScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.minusScale.Location = new System.Drawing.Point(22, 189);
+            this.minusScale.Location = new System.Drawing.Point(224, 39);
             this.minusScale.Name = "minusScale";
             this.minusScale.Size = new System.Drawing.Size(32, 23);
             this.minusScale.TabIndex = 14;
@@ -242,7 +244,7 @@
             // plusZ
             // 
             this.plusZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.plusZ.Location = new System.Drawing.Point(147, 91);
+            this.plusZ.Location = new System.Drawing.Point(147, 97);
             this.plusZ.Name = "plusZ";
             this.plusZ.Size = new System.Drawing.Size(32, 23);
             this.plusZ.TabIndex = 15;
@@ -253,7 +255,7 @@
             // minusZ
             // 
             this.minusZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.minusZ.Location = new System.Drawing.Point(22, 91);
+            this.minusZ.Location = new System.Drawing.Point(22, 97);
             this.minusZ.Name = "minusZ";
             this.minusZ.Size = new System.Drawing.Size(32, 23);
             this.minusZ.TabIndex = 16;
@@ -264,7 +266,7 @@
             // plusY
             // 
             this.plusY.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.plusY.Location = new System.Drawing.Point(147, 62);
+            this.plusY.Location = new System.Drawing.Point(147, 68);
             this.plusY.Name = "plusY";
             this.plusY.Size = new System.Drawing.Size(32, 23);
             this.plusY.TabIndex = 17;
@@ -275,7 +277,7 @@
             // minusY
             // 
             this.minusY.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.minusY.Location = new System.Drawing.Point(22, 62);
+            this.minusY.Location = new System.Drawing.Point(22, 68);
             this.minusY.Name = "minusY";
             this.minusY.Size = new System.Drawing.Size(32, 23);
             this.minusY.TabIndex = 18;
@@ -286,7 +288,7 @@
             // plusX
             // 
             this.plusX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.plusX.Location = new System.Drawing.Point(147, 33);
+            this.plusX.Location = new System.Drawing.Point(147, 39);
             this.plusX.Name = "plusX";
             this.plusX.Size = new System.Drawing.Size(32, 23);
             this.plusX.TabIndex = 19;
@@ -297,7 +299,7 @@
             // minusX
             // 
             this.minusX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.minusX.Location = new System.Drawing.Point(22, 33);
+            this.minusX.Location = new System.Drawing.Point(22, 39);
             this.minusX.Name = "minusX";
             this.minusX.Size = new System.Drawing.Size(32, 23);
             this.minusX.TabIndex = 20;
@@ -315,11 +317,18 @@
             this.dxControl1.TabIndex = 3;
             this.dxControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dxControl1_MouseMove);
             // 
+            // serializationErrorCallbackBindingSource
+            // 
+            this.serializationErrorCallbackBindingSource.DataSource = typeof(Newtonsoft.Json.Serialization.SerializationErrorCallback);
+            // 
+            // 
+            // 
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 689);
+            this.ClientSize = new System.Drawing.Size(1254, 689);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dxControl1);
             this.Name = "Form1";
@@ -329,6 +338,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -356,6 +366,7 @@
         private System.Windows.Forms.NumericUpDown meshGridCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox paintColored;
+        private System.Windows.Forms.BindingSource serializationErrorCallbackBindingSource;
     }
 }
 

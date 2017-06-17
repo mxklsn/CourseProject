@@ -26,6 +26,7 @@ namespace TemplateApp
         public Form1()
         {
             InitializeComponent();
+
             var modelCreator = new ModelCreator(
                 new ModelData("../TestCase/test.json"),
                 Convert.ToInt32(meshGridCount.Value));
@@ -62,7 +63,6 @@ namespace TemplateApp
             PositionY = e.Y;
             dxControl1.Refresh();
         }
-        
 
         /* Коэф одного шага */
         private void stepChange_ValueChanged(object sender, EventArgs e)
@@ -125,7 +125,8 @@ namespace TemplateApp
         {
             var modelCreator = new ModelCreator(
                 new ModelData("../TestCase/test.json"),
-                Convert.ToInt32(meshGridCount.Value));
+                Convert.ToInt32(meshGridCount.Value)
+            );
             modelCreator.Create();
 
             Points = modelCreator.Points;

@@ -1,11 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 
 namespace OpenGlTemplateApp
 {
+    public class JsonResult
+    {
+        public int testId { get; set; }
+        public string testName { get; set; }
+        public int minScore { get; set; }
+        public int score { get; set; }
+        public DateTime date { get; set; }
+        public string status { get; set; }
+    }
+
     internal class ModelData
     {
         /// <summary>
@@ -26,7 +37,10 @@ namespace OpenGlTemplateApp
             using (var reader = new StreamReader(_filePath))
             {
                 var json = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<InputData>(json);
+                var dataSource = JsonConvert.DeserializeObject<InputData>(json);
+                Console.Write(dataSource);
+                //dataGV.DataSource = dataSource;
+                return dataSource;
             }
         }
 
