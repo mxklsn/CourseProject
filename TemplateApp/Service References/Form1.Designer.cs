@@ -340,7 +340,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dxControl1);
             this.Name = "Form1";
-            this.Text = "Тестовое приложение";
+            this.Text = "Layer builder";
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
