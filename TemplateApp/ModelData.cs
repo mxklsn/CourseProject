@@ -9,12 +9,12 @@ namespace OpenGlTemplateApp
 {
     public class JsonResult
     {
-        public int testId { get; set; }
-        public string testName { get; set; }
-        public int minScore { get; set; }
-        public int score { get; set; }
-        public DateTime date { get; set; }
-        public string status { get; set; }
+        public int layerId { get; set; }
+        public bool active { get; set; }
+        public string name { get; set; }
+        public string material { get; set; }
+        public string topSection { get; set; }
+        public string bottomSection { get; set; }
     }
 
     internal class ModelData
@@ -23,24 +23,31 @@ namespace OpenGlTemplateApp
         /// Чтение и сохранение данных
         /// </summary>
         /// <param name="filePath">Путь до файла .Json</param>
-        public ModelData(string filePath)
+        public ModelData(string filePath, string dataGridJson)
         {
             _filePath = filePath;
+            _dataGridJson = dataGridJson;
         }
 
         public List<double> PointsDll { get; set; }
 
         private readonly string _filePath;
 
-        public InputData LoadJson()
+        private readonly string _dataGridJson;
+
+        public InputData LoadJson(DataGridView dataGV)
         {
+            using (var reader = new StreamReader(_dataGridJson))
+            {
+                var json = reader.ReadToEnd();
+                var dataSource = JsonConvert.DeserializeObject<List<JsonResult>>(json);
+                dataGV.DataSource = dataSource;
+            }
+
             using (var reader = new StreamReader(_filePath))
             {
                 var json = reader.ReadToEnd();
-                var dataSource = JsonConvert.DeserializeObject<InputData>(json);
-                Console.Write(dataSource);
-                //dataGV.DataSource = dataSource;
-                return dataSource;
+                return JsonConvert.DeserializeObject<InputData>(json);
             }
         }
 

@@ -51,10 +51,12 @@
             this.minusX = new System.Windows.Forms.Button();
             this.dxControl1 = new TemplateApp.DxControl();
             this.serializationErrorCallbackBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGV = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -66,6 +68,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.Controls.Add(this.dataGV);
             this.panel1.Controls.Add(this.paintColored);
             this.panel1.Controls.Add(this.meshGridCount);
             this.panel1.Controls.Add(this.stepChange);
@@ -321,8 +324,13 @@
             // 
             this.serializationErrorCallbackBindingSource.DataSource = typeof(Newtonsoft.Json.Serialization.SerializationErrorCallback);
             // 
+            // dataGV
             // 
-            // 
+            this.dataGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGV.Location = new System.Drawing.Point(22, 139);
+            this.dataGV.Name = "dataGV";
+            this.dataGV.Size = new System.Drawing.Size(415, 150);
+            this.dataGV.TabIndex = 5;
             // 
             // Form1
             // 
@@ -339,6 +347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -367,6 +376,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox paintColored;
         private System.Windows.Forms.BindingSource serializationErrorCallbackBindingSource;
+        private System.Windows.Forms.DataGridView dataGV;
     }
 }
 

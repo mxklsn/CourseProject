@@ -16,7 +16,7 @@ namespace OpenGlTemplateApp
 
         private readonly int _meshGridCount;
 
-        //public DataGridView _dataGridView;
+        public DataGridView _dataGridView;
 
         private readonly bool _isColored;
 
@@ -26,17 +26,17 @@ namespace OpenGlTemplateApp
 
         public int CountArray { get; set; }
 
-        public ModelCreator(ModelData curveFile, int meshGridCount)
+        public ModelCreator(ModelData curveFile, int meshGridCount, DataGridView dataGV)
         {
             _curveData = curveFile;
             _meshGridCount = meshGridCount;
-            //_dataGridView = dataGV;
+            _dataGridView = dataGV;
         }
 
         public void Create()
         {
             // Получаем данные
-            var inputData = _curveData.LoadJson();
+            var inputData = _curveData.LoadJson(_dataGridView);
 
             // Преобразовываем данные
             var intervalsData = new DataIntervalsData(

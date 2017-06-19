@@ -1,0 +1,13 @@
+[
+	{
+		layerId: 1, active: true, name: "Gold", material: "gold",
+		topSection: "
+			0, 0,    0,      5,    0,    0,
+			0, 2.5,  0,      5.5,  2.5,  0,
+		",
+		bottomSection: "
+			0, 0,    3,      5,    0,    3,
+			0, 2.5,  3,      5.5,  2.5,  3,
+		"
+	},
+]

@@ -28,8 +28,11 @@ namespace TemplateApp
             InitializeComponent();
 
             var modelCreator = new ModelCreator(
-                new ModelData("../TestCase/test.json"),
-                Convert.ToInt32(meshGridCount.Value));
+                new ModelData(
+                    "../TestCase/test.json",
+                    "../TestCase/dataGridView.json"
+                    ),
+                Convert.ToInt32(meshGridCount.Value), dataGV);
             modelCreator.Create();
 
             Points = modelCreator.Points;
@@ -124,8 +127,9 @@ namespace TemplateApp
         private void meshGridCount_ValueChanged(object sender, EventArgs e)
         {
             var modelCreator = new ModelCreator(
-                new ModelData("../TestCase/test.json"),
-                Convert.ToInt32(meshGridCount.Value)
+                new ModelData("../TestCase/test.json", "../TestCase/dataGridView.json"),
+                Convert.ToInt32(meshGridCount.Value),
+                dataGV
             );
             modelCreator.Create();
 
@@ -144,8 +148,8 @@ namespace TemplateApp
         private void paintColored_CheckedChanged(object sender, EventArgs e)
         {
             var modelCreator = new ModelCreator(
-                new ModelData("../TestCase/test.json"),
-                1);
+                new ModelData("../TestCase/test.json", "../TestCase/dataGridView.json"),
+                1, dataGV);
             modelCreator.Create();
 
             Points = modelCreator.Points;
