@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGV = new System.Windows.Forms.DataGridView();
             this.paintColored = new System.Windows.Forms.CheckBox();
             this.meshGridCount = new System.Windows.Forms.NumericUpDown();
             this.stepChange = new System.Windows.Forms.NumericUpDown();
@@ -51,12 +52,11 @@
             this.minusX = new System.Windows.Forms.Button();
             this.dxControl1 = new TemplateApp.DxControl();
             this.serializationErrorCallbackBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGV = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -91,6 +91,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(440, 689);
             this.panel1.TabIndex = 4;
+            // 
+            // dataGV
+            // 
+            this.dataGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGV.Location = new System.Drawing.Point(22, 139);
+            this.dataGV.Name = "dataGV";
+            this.dataGV.Size = new System.Drawing.Size(415, 150);
+            this.dataGV.TabIndex = 5;
+            this.dataGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGV_CellEndEdit);
             // 
             // paintColored
             // 
@@ -324,14 +333,6 @@
             // 
             this.serializationErrorCallbackBindingSource.DataSource = typeof(Newtonsoft.Json.Serialization.SerializationErrorCallback);
             // 
-            // dataGV
-            // 
-            this.dataGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGV.Location = new System.Drawing.Point(22, 139);
-            this.dataGV.Name = "dataGV";
-            this.dataGV.Size = new System.Drawing.Size(415, 150);
-            this.dataGV.TabIndex = 5;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,10 +345,10 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.meshGridCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepChange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.serializationErrorCallbackBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
             this.ResumeLayout(false);
 
         }

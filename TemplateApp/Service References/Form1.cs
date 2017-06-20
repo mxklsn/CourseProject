@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using OpenGlTemplateApp;
+using Newtonsoft.Json;
 
 namespace TemplateApp
 {
@@ -162,6 +163,22 @@ namespace TemplateApp
 
             DxRefresh = true;
             dxControl1.Refresh();
+        }
+
+        private void UpdateBalance()
+        {
+            var count = dataGV.RowCount;
+
+            //string output = JsonConvert.SerializeObject(dataGV.DataSource.ToString());
+            //System.IO.File.WriteAllText("../TestCase/dataGridView.json", output);
+
+        }
+
+        private void dataGV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var _sender = sender;
+            var _e = e;
+            UpdateBalance();
         }
     }
 }
